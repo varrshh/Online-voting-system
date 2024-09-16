@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 const pool = require('./config/db'); // No need to call connectDB
 const voteRoutes = require('./routes/voteRoutes');
 const authRoutes = require('./routes/authRoutes');
+const cors = require('cors');
+
+require('dotenv').config();  // Load environment variables from .env file
 
 const app = express();
-
+app.use(cors()); // Allow all cross-origin requests
 // Middleware
 app.use(bodyParser.json());
 
