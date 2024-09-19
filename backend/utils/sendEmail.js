@@ -1,29 +1,31 @@
+
+
 const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'infosecproject1012@gmail.com',
-    pass: 'vosztzlkfnzdehlc'
-  },
-  logger: true,  // Enable logging
-  debug: true,   // Enable debug output
-});
+// Email-sending utility function
+const sendEmail = async (recipient, subject, message) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'infosecproject1012@gmail.com',
+      pass:'xgkq jzlv vxww btms',
+    },
+  });
 
-async function sendOtpEmail(userEmail, otp) {
   const mailOptions = {
     from: 'infosecproject1012@gmail.com',
-    to: userEmail,
-    subject: 'Your One-Time Password (OTP)',
-    text: `Your OTP is: ${otp}. It's valid for 5 minutes.`
+    to: recipient,
+    subject: subject,
+    text: message,
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log('OTP email sent successfully.');
+    console.log('Email sent successfully.');
   } catch (error) {
-    console.error('Error sending OTP email:', error);
+    console.error('Error sending email:', error);
   }
-}
+};
 
-module.exports = sendOtpEmail;
+module.exports = sendEmail;
+

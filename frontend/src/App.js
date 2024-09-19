@@ -5,6 +5,7 @@ import Register from './components/Register';
 import VotingPage from './components/VotingPage';
 import ResultsPage from './components/ResultsPage';
 import Header from './components/Header';
+import ConfirmationPage from './components/Confirmation';
 
 // Function to protect routes
 function PrivateRoute({ children }) {
@@ -21,6 +22,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         {/* Protect the voting page */}
         <Route path="/vote" element={<PrivateRoute><VotingPage /></PrivateRoute>} />
+        <Route path="/confirmation" element={<PrivateRoute><ConfirmationPage /></PrivateRoute>} />
+        <Route path="/results" element={<PrivateRoute><ResultsPage/></PrivateRoute>} /> 
       </Routes>
     </Router>
   );

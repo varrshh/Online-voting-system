@@ -9,8 +9,9 @@ const protect = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, 'your_jwt_secret');
-    req.user = decoded;  // Attach the user payload to the request
+    const decoded = jwt.verify(token, 'd112b53441301142acc130612a2c67207fd87488cdf804d511bc6721a06d8001c6358a7e7c71d4a0b768bbc47d3e64b630e653976b517859f543d868115ee224');
+   // Attach the decoded user info to req.user
+   req.user = { id: decoded.id, username: decoded.username }; // Attach the user payload to the request
     next();
   } catch (error) {
     res.status(401).json({ message: 'Invalid token' });

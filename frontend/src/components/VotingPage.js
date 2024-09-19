@@ -60,9 +60,9 @@ const Loader = styled.div`
 `;
 
 function VotingPage() {
-  const [candidate, setCandidate] = useState('');  // Store the selected candidate
-  const [file, setFile] = useState(null);         // Store the uploaded file
-  const [loading, setLoading] = useState(false);  // Track loading state
+  const [candidate, setCandidate] = useState('');
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Handle form submission
   const handleVote = async (e) => {
@@ -74,25 +74,26 @@ function VotingPage() {
     }
 
     const formData = new FormData();
-    formData.append('candidate', candidate);  // Add the selected candidate to the form data
-    formData.append('file', file);            // Add the uploaded file (steganography)
+    formData.append('candidate', candidate);
+    formData.append('file', file);
 
-    setLoading(true);  // Set loading state to true
+    setLoading(true);
 
     try {
-      const token = localStorage.getItem('token');  // Get the JWT token
-      const response = await axios.post('/api/votes/submit', formData, {
+      const token = localStorage.getItem('token');
+      const response = await axios.post('http://localhost:5000/api/votes/submit', formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      setLoading(false);  // Set loading state to false
+      setLoading(false);
       alert('Vote submitted successfully!');
       console.log('Vote Response:', response.data);
+      window.location.href = '/results';
     } catch (error) {
-      setLoading(false);  // Set loading state to false
+      setLoading(false);
       console.error('Error submitting vote:', error);
       alert('Error submitting vote. Please try again.');
     }

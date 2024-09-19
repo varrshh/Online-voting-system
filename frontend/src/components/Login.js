@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 import OtpVerification from './OtpVerification';
 
@@ -36,58 +36,96 @@ const Button = styled.button`
   }
 `;
 
-function Login() {
+// function Login() {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [otpSent, setOtpSent] = useState(false);
+//   const [userId, setUserId] = useState(null);
+
+
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       const { data } = await axios.post('/api/auth/login', { username, password });
+//       localStorage.setItem('token', data.token); // Store JWT token
+//       setOtpSent(true);
+//       setUserId(data.userId); // Store the user ID for OTP verification
+     
+
+//     } catch (error) {
+//       console.error('Login error:', error);
+//       alert('Invalid username or password. Try again.');
+//     }
+//   };
+
+//   // Show OTP form after login success
+//   if (otpSent) {
+//     return <OtpVerification userId={userId} />;  // Show OTP verification component
+//   }
+
+
+//   return  (
+     
+     
+//     <LoginContainer>
+//       <h2>Login</h2>
+//       <form onSubmit={handleLogin}>
+//         <Input
+//           type="text"
+//           placeholder="Username"
+//           value={username}
+//           onChange={(e) => setUsername(e.target.value)}
+//         />
+//         <Input
+//           type="password"
+//           placeholder="Password"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//         />
+//         <Button type="submit">Login</Button>
+//       </form>
+//       <p>Don't have an account? <a href="/register">Register here</a></p>
+//     </LoginContainer>
+//   );
+// }
+
+// export default Login;
+
+
+
+function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
   const [userId, setUserId] = useState(null);
-  const navigate = useNavigate();
+  const [showOtpInput, setShowOtpInput] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
-      const { data } = await axios.post('/api/auth/login', { username, password });
-      localStorage.setItem('token', data.token); // Store JWT token
-      setOtpSent(true);
-      setUserId(data.userId); // Store the user ID for OTP verification
-     
-
+      const { data } = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+      setUserId(data.userId);
+      setShowOtpInput(true);
+      alert('OTP sent to your email!');
     } catch (error) {
-      console.error('Login error:', error);
-      alert('Invalid username or password. Try again.');
+      console.error('Error during login:', error);
+      alert('Invalid username or password');
     }
   };
 
-  // Show OTP form after login success
-  if (otpSent) {
-    return <OtpVerification userId={userId} />;  // Show OTP verification component
-  }
-
-
-  return  (
-     
-     
+  return (
     <LoginContainer>
-      <h2>Login</h2>
+    <div>
       <form onSubmit={handleLogin}>
-        <Input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <Button type="submit">Login</Button>
       </form>
-      <p>Don't have an account? <a href="/register">Register here</a></p>
+      {showOtpInput && <OtpVerification userId={userId} />}
+    </div>
     </LoginContainer>
   );
 }
 
-export default Login;
+export default LoginPage;
+

@@ -33,6 +33,71 @@ const Button = styled.button`
     background-color: #16213e;
   }
 `;
+// function OtpVerification({ userId }) {
+//   const [otp, setOtp] = useState('');
+
+//   const handleOtpSubmit = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       const { data } = await axios.post('/api/auth/verify-otp', { userId, otp });
+//       localStorage.setItem('token', data.token);  // Save the token after successful OTP verification
+//       alert('Login successful!');
+//       window.location.href = '/vote';  // Redirect to dashboard
+//     } catch (error) {
+//       console.error('Error verifying OTP:', error);
+//       alert('Invalid OTP');
+//     }
+//   };
+
+//   return (
+//     <OtpContainer>
+//     <form onSubmit={handleOtpSubmit}>
+//       <label>Enter OTP:</label>
+//       <Input
+//         type="text"
+//         value={otp}
+//         onChange={(e) => setOtp(e.target.value)}
+//         required
+//       />
+//       <Button type="submit">Verify OTP</Button>
+//     </form>
+//     </OtpContainer>
+//   );
+// }
+
+
+
+// function OtpVerification({ userId }) {
+//   const [otp, setOtp] = useState('');
+
+//   const handleOtpSubmit = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       const { data } = await axios.post('/api/auth/verify-otp', { userId, otp });
+//       localStorage.setItem('token', data.token);  // Save JWT token
+//       alert('Login successful!');
+//       window.location.href = '/vote';  // Redirect to dashboard or voting page
+//     } catch (error) {
+//       console.error('Error verifying OTP:', error);
+//       alert('Invalid OTP');
+//     }
+//   };
+
+//   return (
+//     <OtpContainer>
+//     <form onSubmit={handleOtpSubmit}>
+//       <label>Enter OTP:</label>
+//       <Input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} required />
+//       <Button type="submit">Verify OTP</Button>
+//     </form>
+//     </OtpContainer>
+//   );
+// }
+
+
+
 function OtpVerification({ userId }) {
   const [otp, setOtp] = useState('');
 
@@ -40,10 +105,13 @@ function OtpVerification({ userId }) {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post('/api/auth/verify-otp', { userId, otp });
-      localStorage.setItem('token', data.token);  // Save the token after successful OTP verification
+      const { data } = await axios.post('http://localhost:5000/api/auth/verify-otp', {
+        userId,
+        otp,
+      });
+      localStorage.setItem('token', data.token); // Save JWT token
       alert('Login successful!');
-      window.location.href = '/vote';  // Redirect to dashboard
+      window.location.href = '/vote'; // Redirect to vote page
     } catch (error) {
       console.error('Error verifying OTP:', error);
       alert('Invalid OTP');
@@ -65,5 +133,9 @@ function OtpVerification({ userId }) {
     </OtpContainer>
   );
 }
+
+
+
+
 
 export default OtpVerification;
