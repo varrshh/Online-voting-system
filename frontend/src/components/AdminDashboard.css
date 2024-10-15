@@ -1,0 +1,32 @@
+.admin-dashboard {
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .dashboard-header {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-summary {
+    margin: 20px auto;
+  }
+  
+  .styled-table {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+  }
+  
+  .styled-table th, .styled-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .chart-container {
+    width: 70%;
+    margin: 20px auto;
+  }
+  

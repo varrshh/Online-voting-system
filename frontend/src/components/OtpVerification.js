@@ -111,7 +111,7 @@ function OtpVerification({ userId }) {
       });
       localStorage.setItem('token', data.token); // Save JWT token
       alert('Login successful!');
-      window.location.href = '/vote'; // Redirect to vote page
+      window.location.href = '/dashboard'; // Redirect to vote page
     } catch (error) {
       console.error('Error verifying OTP:', error);
       alert('Invalid OTP');

@@ -111,7 +111,7 @@ router.post('/register', async (req, res) => {
     const userId = userResult.rows[0].id; // Get the newly created user's ID
     // Insert initial vote record for user with has_voted = false
     const insertVoteQuery = `
-      INSERT INTO votes (user_id, encrypted_vote, vote_time, has_voted)
+      INSERT INTO votes (user_id, encrypted_vote, timestamp, has_voted)
       VALUES ($1, NULL, NULL, false)
     `;
     await pool.query(insertVoteQuery, [userId]);
@@ -270,6 +270,13 @@ router.post('/verify-otp', async (req, res) => {
     console.error('Error verifying OTP:', error);
     res.status(500).json({ message: 'Server error during OTP verification' });
   }
+});
+
+
+router.post('/logout', (req, res) => {
+  // Clear the session or token
+  res.clearCookie('token'); // If you're using cookies
+  return res.status(200).json({ message: 'Logged out successfully' });
 });
 
 

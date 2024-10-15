@@ -106,6 +106,7 @@ function LoginPage() {
       const { data } = await axios.post('http://localhost:5000/api/auth/login', { username, password });
       setUserId(data.userId);
       setShowOtpInput(true);
+      localStorage.setItem('username', username); // Store username
       alert('OTP sent to your email!');
     } catch (error) {
       console.error('Error during login:', error);
@@ -115,12 +116,15 @@ function LoginPage() {
 
   return (
     <LoginContainer>
+      <h2>Login</h2>
     <div>
       <form onSubmit={handleLogin}>
         <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
         <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <Button type="submit">Login</Button>
+
       </form>
+      <p>Don't have an account? <a href="/register">Register here</a></p>
       {showOtpInput && <OtpVerification userId={userId} />}
     </div>
     </LoginContainer>
